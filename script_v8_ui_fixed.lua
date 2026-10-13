@@ -1,3 +1,11 @@
+--[[
+	Script v8 = v7 plus:
+	* cool team selection ui with full lore descriptions, auto-reset, and client-sided team state tracking.
+	* fixed danger meter
+	* BOOSTED STAMINA: Higher max stamina limits and instantaneous recovery.
+	* fixed anim duplication
+	* VISOR & CRT OVERHAUL: Enhanced retro aesthetics, phosphor glow, and tactical readouts.
+	* RAPID-FIRE ABILITY STOP: Stops the replacement animation if triggered again in under 0.4 seconds.
 ]]
 
 local Players = game:GetService("Players")
@@ -14,7 +22,7 @@ local Shared = env.Shared or rawget(_G, "Shared") or {}
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
----------------------------------------------------------------- cleanup of previous guis Xd
+---------------------------------------------------------------- cleanup of previous run XD
 local GUI_NAMES = {
 	"ESPToggleGui", "ViralFistsGUI", "CombatControlsGui", "VictimAnimGui",
 	"SinSwapGui", "ExecModeGui", "LayoutEditorGui", "DevicePromptGui", "ScriptStatusGui", "ScriptLogGui", "VisorToggleGui", "RifVisorGui", "MenloToggleGui", "MenloVisorGui", "HideHudGui", "TeamSelectGui",
@@ -967,7 +975,7 @@ runSection("4", function()
 	local SPRINT_ANIMATION_ID = "rbxassetid://111821553591135"
 
 	local TARGET_IDS = { "103116263598605", "124609826792133" }
-	local REPLACEMENT_ID = {"rbxassetid://112634711476303", "rbxassetid://120641479913190"}
+	local REPLACEMENT_ID = "rbxassetid://112634711476303"
 
 	local SWAP_TUNING = {
 		speed = 1.3, start = 0.15, fadeIn = 0.05, weight = 1, loop = false, cooldown = 0.4, owner = "swap",
