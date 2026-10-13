@@ -2749,7 +2749,7 @@ runSection("6d", function()
 	end)
 end)
 
----------------------------------------------------------------- 8) futuristic team selector (RAID & MENLO)
+---------------------------------------------------------------- 8) futuristic team selector (Raid & Menlo)
 runSection("8", function()
 	local gui = Instance.new("ScreenGui")
 	gui.Name = "TeamSelectGui"
@@ -2758,9 +2758,7 @@ runSection("8", function()
 	gui.DisplayOrder = 1500
 	gui.Parent = PlayerGui
 
-	----------------------------------------------------------------
-	-- Floating trigger button (dark futuristic pill, animated glow)
-	----------------------------------------------------------------
+	-- Floating trigger button (dark futuristic pill)
 	local openBtn = Instance.new("TextButton")
 	openBtn.Name = "TeamSelectButton"
 	openBtn.Size = UDim2.new(0, 156, 0, 46)
@@ -2770,21 +2768,8 @@ runSection("8", function()
 	openBtn.BorderSizePixel = 0
 	openBtn.AutoButtonColor = false
 	openBtn.Text = ""
-	openBtn.ClipsDescendants = false
 	openBtn.Parent = gui
 	Instance.new("UICorner", openBtn).CornerRadius = UDim.new(1, 0)
-
-	local btnGlow = Instance.new("Frame")
-	btnGlow.Name = "Glow"
-	btnGlow.AnchorPoint = Vector2.new(0.5, 0.5)
-	btnGlow.Position = UDim2.fromScale(0.5, 0.5)
-	btnGlow.Size = UDim2.new(1, 20, 1, 20)
-	btnGlow.BackgroundColor3 = Color3.fromRGB(130, 80, 255)
-	btnGlow.BackgroundTransparency = 1
-	btnGlow.BorderSizePixel = 0
-	btnGlow.ZIndex = 0
-	btnGlow.Parent = openBtn
-	Instance.new("UICorner", btnGlow).CornerRadius = UDim.new(1, 0)
 
 	local btnStroke = Instance.new("UIStroke")
 	btnStroke.Color = Color3.fromRGB(110, 80, 220)
@@ -2793,96 +2778,37 @@ runSection("8", function()
 	btnStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 	btnStroke.Parent = openBtn
 
-	local btnGradient = Instance.new("UIGradient")
-	btnGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 70, 70)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 220, 100)),
-	})
-	btnGradient.Rotation = 0
-	btnGradient.Parent = btnStroke
-
-	local btnIcon = Instance.new("TextLabel")
-	btnIcon.BackgroundTransparency = 1
-	btnIcon.Size = UDim2.fromOffset(18, 18)
-	btnIcon.Position = UDim2.new(0, 16, 0.5, -9)
-	btnIcon.Font = Enum.Font.GothamBold
-	btnIcon.Text = "\u{2691}"
-	btnIcon.TextSize = 14
-	btnIcon.TextColor3 = Color3.fromRGB(200, 190, 255)
-	btnIcon.Parent = openBtn
-
 	local btnText = Instance.new("TextLabel")
 	btnText.BackgroundTransparency = 1
-	btnText.Size = UDim2.new(1, -42, 1, 0)
-	btnText.Position = UDim2.new(0, 40, 0, 0)
+	btnText.Size = UDim2.new(1, 0, 1, 0)
 	btnText.Font = Enum.Font.GothamBold
 	btnText.Text = "SELECT TEAM"
 	btnText.TextSize = 13
-	btnText.TextXAlignment = Enum.TextXAlignment.Left
 	btnText.TextColor3 = Color3.fromRGB(235, 235, 245)
 	btnText.Parent = openBtn
 
-	local btnScale = Instance.new("UIScale")
-	btnScale.Parent = openBtn
-
-	openBtn.MouseEnter:Connect(function()
-		tween(btnScale, 0.12, { Scale = 1.05 })
-		tween(btnGlow, 0.2, { BackgroundTransparency = 0.75 })
-		tween(btnStroke, 0.2, { Transparency = 0.05 })
-	end)
-	openBtn.MouseLeave:Connect(function()
-		tween(btnScale, 0.12, { Scale = 1 })
-		tween(btnGlow, 0.2, { BackgroundTransparency = 1 })
-		tween(btnStroke, 0.2, { Transparency = 0.3 })
-	end)
-	openBtn.MouseButton1Down:Connect(function() tween(btnScale, 0.08, { Scale = 0.96 }) end)
-	openBtn.MouseButton1Up:Connect(function() tween(btnScale, 0.1, { Scale = 1.05 }) end)
-
-	bind(RunService.RenderStepped:Connect(function()
-		btnGradient.Rotation = (os.clock() * 40) % 360
-	end))
-
-	----------------------------------------------------------------
 	-- Fullscreen dark sci-fi modal
-	----------------------------------------------------------------
 	local modal = Instance.new("Frame")
 	modal.Name = "TeamModal"
 	modal.Size = UDim2.fromScale(1, 1)
 	modal.BackgroundColor3 = Color3.fromRGB(5, 5, 8)
-	modal.BackgroundTransparency = 1
+	modal.BackgroundTransparency = 0.35
 	modal.BorderSizePixel = 0
 	modal.Visible = false
-	modal.Active = true
 	modal.Parent = gui
 
 	local blurDim = Instance.new("Frame")
 	blurDim.Size = UDim2.fromScale(1, 1)
 	blurDim.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	blurDim.BackgroundTransparency = 1
+	blurDim.BackgroundTransparency = 0.5
 	blurDim.BorderSizePixel = 0
 	blurDim.Parent = modal
 
-	local gridHolder = Instance.new("Frame")
-	gridHolder.Size = UDim2.fromScale(1, 1)
-	gridHolder.BackgroundTransparency = 1
-	gridHolder.ClipsDescendants = true
-	gridHolder.Parent = modal
-	for i = 1, 10 do
-		local line = Instance.new("Frame")
-		line.Size = UDim2.new(1, 0, 0, 1)
-		line.Position = UDim2.new(0, 0, i / 10, 0)
-		line.BackgroundColor3 = Color3.fromRGB(120, 90, 255)
-		line.BackgroundTransparency = 0.94
-		line.BorderSizePixel = 0
-		line.Parent = gridHolder
-	end
-
 	local container = Instance.new("Frame")
 	container.AnchorPoint = Vector2.new(0.5, 0.5)
-	container.Position = UDim2.fromScale(0.5, 0.46)
+	container.Position = UDim2.fromScale(0.5, 0.5)
 	container.Size = UDim2.fromOffset(760, 460)
 	container.BackgroundColor3 = Color3.fromRGB(12, 12, 18)
-	container.BackgroundTransparency = 1
 	container.BorderSizePixel = 0
 	container.Parent = modal
 	Instance.new("UICorner", container).CornerRadius = UDim.new(0, 16)
@@ -2890,17 +2816,8 @@ runSection("8", function()
 	local contStroke = Instance.new("UIStroke")
 	contStroke.Color = Color3.fromRGB(120, 80, 250)
 	contStroke.Thickness = 2
-	contStroke.Transparency = 1
 	contStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 	contStroke.Parent = container
-
-	local contShadow = Instance.new("UIGradient")
-	contShadow.Color = ColorSequence.new(Color3.fromRGB(120, 80, 250))
-	contShadow.Transparency = NumberSequence.new({
-		NumberSequenceKeypoint.new(0, 0.7), NumberSequenceKeypoint.new(0.5, 0.95), NumberSequenceKeypoint.new(1, 0.7),
-	})
-	contShadow.Rotation = 90
-	contShadow.Parent = contStroke
 
 	local titleLbl = Instance.new("TextLabel")
 	titleLbl.BackgroundTransparency = 1
@@ -2910,7 +2827,6 @@ runSection("8", function()
 	titleLbl.Text = "CHOOSE YOUR FACTION"
 	titleLbl.TextSize = 20
 	titleLbl.TextColor3 = Color3.fromRGB(245, 245, 255)
-	titleLbl.TextTransparency = 1
 	titleLbl.Parent = container
 
 	local subLbl = Instance.new("TextLabel")
@@ -2920,407 +2836,122 @@ runSection("8", function()
 	subLbl.Font = Enum.Font.GothamMedium
 	subLbl.Text = "THERE ARE ONLY TWO TRUE POWERS. SELECT WISELY."
 	subLbl.TextSize, subLbl.TextColor3 = 11, Color3.fromRGB(140, 140, 165)
-	subLbl.TextTransparency = 1
 	subLbl.Parent = container
 
-	----------------------------------------------------------------
-	-- Confirmation toast (shown after a team is chosen)
-	----------------------------------------------------------------
-	local toast = Instance.new("Frame")
-	toast.AnchorPoint = Vector2.new(0.5, 0)
-	toast.Position = UDim2.new(0.5, 0, 0, -60)
-	toast.Size = UDim2.fromOffset(320, 48)
-	toast.BackgroundColor3 = Color3.fromRGB(14, 14, 20)
-	toast.BorderSizePixel = 0
-	toast.Visible = false
-	toast.ZIndex = 50
-	toast.Parent = gui
-	Instance.new("UICorner", toast).CornerRadius = UDim.new(0, 12)
-	local toastStroke = Instance.new("UIStroke")
-	toastStroke.Thickness = 1.5
-	toastStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	toastStroke.Parent = toast
-	local toastText = Instance.new("TextLabel")
-	toastText.BackgroundTransparency = 1
-	toastText.Size = UDim2.fromScale(1, 1)
-	toastText.Font = Enum.Font.GothamBold
-	toastText.TextSize = 13
-	toastText.TextColor3 = Color3.fromRGB(240, 240, 248)
-	toastText.Parent = toast
-
-	local function showToast(teamDisplayName, accentColor)
-		toastText.Text = "ENLISTED IN " .. string.upper(teamDisplayName)
-		toastStroke.Color = accentColor
-		toast.Visible = true
-		toast.Position = UDim2.new(0.5, 0, 0, -60)
-		tween(toast, 0.35, { Position = UDim2.new(0.5, 0, 0, 24) })
-		task.delay(2.2, function()
-			tween(toast, 0.3, { Position = UDim2.new(0.5, 0, 0, -60) })
-			task.delay(0.3, function() if toast then toast.Visible = false end end)
-		end)
-	end
-
-	----------------------------------------------------------------
-	-- Team card builder
-	----------------------------------------------------------------
-	local function makeTeamCard(posX, displayName, remoteTeamName, accentColor, descriptionText)
-		local cardHolder = Instance.new("Frame")
-		cardHolder.AnchorPoint = Vector2.new(0.5, 0.5)
-		cardHolder.Position = UDim2.new(0, posX + 170, 0, 85 + 165)
-		cardHolder.Size = UDim2.fromOffset(340, 330)
-		cardHolder.BackgroundTransparency = 1
-		cardHolder.Parent = container
-
-		local cardScale = Instance.new("UIScale")
-		cardScale.Scale = 1
-		cardScale.Parent = cardHolder
-
+	local function makeTeamCard(posX, teamName, accentColor, descriptionText)
 		local card = Instance.new("TextButton")
-		card.AnchorPoint = Vector2.new(0.5, 0.5)
-		card.Position = UDim2.fromScale(0.5, 0.5)
 		card.Size = UDim2.fromOffset(340, 330)
+		card.Position = UDim2.new(0, posX, 0, 85)
 		card.BackgroundColor3 = Color3.fromRGB(16, 16, 24)
-		card.BackgroundTransparency = 1
 		card.BorderSizePixel = 0
 		card.AutoButtonColor = false
 		card.Text = ""
-		card.Parent = cardHolder
+		card.Parent = container
 		Instance.new("UICorner", card).CornerRadius = UDim.new(0, 12)
 
 		local stroke = Instance.new("UIStroke")
 		stroke.Color = accentColor
 		stroke.Thickness = 2
-		stroke.Transparency = 1
+		stroke.Transparency = 0.4
 		stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		stroke.Parent = card
 
-		local topBar = Instance.new("Frame")
-		topBar.Size = UDim2.new(1, 0, 0, 4)
-		topBar.BackgroundColor3 = accentColor
-		topBar.BackgroundTransparency = 1
-		topBar.BorderSizePixel = 0
-		topBar.Parent = card
-		local tbCorner = Instance.new("UICorner", topBar)
-		tbCorner.CornerRadius = UDim.new(1, 0)
-
-		local badge = Instance.new("Frame")
-		badge.Position = UDim2.fromOffset(24, 24)
-		badge.Size = UDim2.fromOffset(44, 44)
-		badge.BackgroundColor3 = accentColor
-		badge.BackgroundTransparency = 0.82
-		badge.BorderSizePixel = 0
-		badge.Parent = card
-		Instance.new("UICorner", badge).CornerRadius = UDim.new(0, 10)
-		local badgeStroke = Instance.new("UIStroke")
-		badgeStroke.Color = accentColor
-		badgeStroke.Thickness = 1.5
-		badgeStroke.Transparency = 0.3
-		badgeStroke.Parent = badge
-		local badgeGlyph = Instance.new("TextLabel")
-		badgeGlyph.BackgroundTransparency = 1
-		badgeGlyph.Size = UDim2.fromScale(1, 1)
-		badgeGlyph.Font = Enum.Font.GothamBlack
-		badgeGlyph.Text = string.sub(displayName, 1, 1)
-		badgeGlyph.TextSize = 20
-		badgeGlyph.TextColor3 = accentColor
-		badgeGlyph.Parent = badge
-
 		local nameLbl = Instance.new("TextLabel")
 		nameLbl.BackgroundTransparency = 1
-		nameLbl.Position = UDim2.fromOffset(80, 24)
-		nameLbl.Size = UDim2.fromOffset(234, 32)
+		nameLbl.Position = UDim2.fromOffset(24, 24)
+		nameLbl.Size = UDim2.fromOffset(290, 32)
 		nameLbl.Font = Enum.Font.GothamBlack
-		nameLbl.Text = string.upper(displayName)
-		nameLbl.TextSize = 24
+		nameLbl.Text = string.upper(teamName)
+		nameLbl.TextSize = 22
 		nameLbl.TextColor3 = accentColor
 		nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-		nameLbl.TextYAlignment = Enum.TextYAlignment.Center
-		nameLbl.TextTransparency = 1
 		nameLbl.Parent = card
-
-		local tagLbl = Instance.new("TextLabel")
-		tagLbl.BackgroundTransparency = 1
-		tagLbl.Position = UDim2.fromOffset(80, 52)
-		tagLbl.Size = UDim2.fromOffset(234, 16)
-		tagLbl.Font = Enum.Font.GothamMedium
-		tagLbl.Text = "FACTION // " .. string.upper(displayName)
-		tagLbl.TextSize = 10
-		tagLbl.TextColor3 = Color3.fromRGB(150, 150, 170)
-		tagLbl.TextXAlignment = Enum.TextXAlignment.Left
-		tagLbl.TextTransparency = 1
-		tagLbl.Parent = card
-
-		local divider = Instance.new("Frame")
-		divider.Position = UDim2.fromOffset(24, 84)
-		divider.Size = UDim2.new(0, 292, 0, 1)
-		divider.BackgroundColor3 = accentColor
-		divider.BackgroundTransparency = 1
-		divider.BorderSizePixel = 0
-		divider.Parent = card
 
 		local descLbl = Instance.new("TextLabel")
 		descLbl.BackgroundTransparency = 1
-		descLbl.Position = UDim2.fromOffset(24, 98)
-		descLbl.Size = UDim2.fromOffset(292, 148)
+		descLbl.Position = UDim2.fromOffset(24, 72)
+		descLbl.Size = UDim2.fromOffset(290, 170)
 		descLbl.Font = Enum.Font.GothamMedium
 		descLbl.Text = descriptionText
 		descLbl.TextSize = 13
-		descLbl.LineHeight = 1.25
 		descLbl.TextColor3 = Color3.fromRGB(200, 200, 215)
 		descLbl.TextXAlignment = Enum.TextXAlignment.Left
 		descLbl.TextYAlignment = Enum.TextYAlignment.Top
 		descLbl.TextWrapped = true
-		descLbl.TextTransparency = 1
 		descLbl.Parent = card
 
 		local selectBtn = Instance.new("Frame")
-		selectBtn.Size = UDim2.fromOffset(292, 44)
-		selectBtn.Position = UDim2.fromOffset(24, 262)
+		selectBtn.Size = UDim2.fromOffset(290, 42)
+		selectBtn.Position = UDim2.fromOffset(24, 260)
 		selectBtn.BackgroundColor3 = accentColor
-		selectBtn.BackgroundTransparency = 1
 		selectBtn.BorderSizePixel = 0
 		selectBtn.Parent = card
 		Instance.new("UICorner", selectBtn).CornerRadius = UDim.new(0, 8)
-
-		local selectGradient = Instance.new("UIGradient")
-		selectGradient.Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-			ColorSequenceKeypoint.new(1, accentColor),
-		})
-		selectGradient.Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 0.75), NumberSequenceKeypoint.new(1, 1),
-		})
-		selectGradient.Rotation = 90
-		selectGradient.Parent = selectBtn
 
 		local btnLbl = Instance.new("TextLabel")
 		btnLbl.BackgroundTransparency = 1
 		btnLbl.Size = UDim2.fromScale(1, 1)
 		btnLbl.Font = Enum.Font.GothamBold
-		btnLbl.Text = "ENLIST IN " .. string.upper(displayName)
+		btnLbl.Text = "ENLIST IN " .. string.upper(teamName)
 		btnLbl.TextSize = 12
 		btnLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-		btnLbl.TextTransparency = 1
 		btnLbl.Parent = selectBtn
 
-		local chevron = Instance.new("TextLabel")
-		chevron.AnchorPoint = Vector2.new(1, 0.5)
-		chevron.Position = UDim2.new(1, -12, 0.5, 0)
-		chevron.Size = UDim2.fromOffset(16, 16)
-		chevron.BackgroundTransparency = 1
-		chevron.Font = Enum.Font.GothamBold
-		chevron.Text = "\u{203A}"
-		chevron.TextSize = 16
-		chevron.TextColor3 = Color3.fromRGB(255, 255, 255)
-		chevron.TextTransparency = 1
-		chevron.Parent = selectBtn
+		card.MouseEnter:Connect(function() tween(card, 0.2, { BackgroundColor3 = Color3.fromRGB(24, 24, 36) }) end)
+		card.MouseLeave:Connect(function() tween(card, 0.2, { BackgroundColor3 = Color3.fromRGB(16, 16, 24) }) end)
 
-		card.MouseEnter:Connect(function()
-			tween(cardScale, 0.15, { Scale = 1.02 })
-			tween(card, 0.2, { BackgroundColor3 = Color3.fromRGB(24, 24, 36) })
-			tween(stroke, 0.2, { Transparency = 0.05 })
-			tween(topBar, 0.2, { BackgroundTransparency = 0.1 })
-			tween(badge, 0.2, { BackgroundTransparency = 0.6 })
-		end)
-		card.MouseLeave:Connect(function()
-			tween(cardScale, 0.15, { Scale = 1 })
-			tween(card, 0.2, { BackgroundColor3 = Color3.fromRGB(16, 16, 24) })
-			tween(stroke, 0.2, { Transparency = 0.4 })
-			tween(topBar, 0.2, { BackgroundTransparency = 1 })
-			tween(badge, 0.2, { BackgroundTransparency = 0.82 })
-		end)
-		card.MouseButton1Down:Connect(function() tween(cardScale, 0.08, { Scale = 0.98 }) end)
-		card.MouseButton1Up:Connect(function() tween(cardScale, 0.1, { Scale = 1.02 }) end)
-
-		local locked = false
 		card.MouseButton1Click:Connect(function()
-			if locked then return end
-			locked = true
-
-			tween(stroke, 0.1, { Transparency = 0, Thickness = 3 })
-			tween(card, 0.12, { BackgroundColor3 = Color3.fromRGB(30, 30, 44) })
-
-			task.delay(0.14, function()
-				modal.Visible = false
-				showToast(displayName, accentColor)
-
-				-- Purely client-sided team state update
-				task.spawn(function()
-					pcall(function()
-						Shared.clientTeam = remoteTeamName
-					end)
+			modal.Visible = false
+			-- Attempt team switch via remote or Teams service, then reset character
+			task.spawn(function()
+				pcall(function()
+					for _, remote in ipairs(ReplicatedStorage:GetDescendants()) do
+						if remote:IsA("RemoteEvent") and (string.find(string.lower(remote.Name), "team") or string.find(string.lower(remote.Name), "faction")) then
+							remote:FireServer(teamName)
+						end
+					end
+					local teams = game:GetService("Teams")
+					local targetTeam = teams:FindFirstChild(teamName)
+					if targetTeam and LocalPlayer then
+						LocalPlayer.Team = targetTeam
+					end
 				end)
+				-- Purely client-sided team state update
+				pcall(function()
+					Shared.clientTeam = teamName
+				end)
+				if LocalPlayer.Character then
+					local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+					if hum then hum.Health = 0 else LocalPlayer.Character:BreakJoints() end
+				end
 			end)
 		end)
-
-		return cardHolder, card, stroke, topBar, badge, nameLbl, tagLbl, divider, descLbl, selectBtn, btnLbl, chevron
 	end
 
-	local raidHolder, raidCard, raidStroke, raidTop, raidBadge, raidName, raidTag, raidDivider, raidDesc, raidSelectBtn, raidBtnLbl, raidChevron = makeTeamCard(
-		40, "RAID", "RAID", Color3.fromRGB(255, 70, 70),
+	makeTeamCard(
+		40, "Raid", Color3.fromRGB(255, 70, 70),
 		"A country of proud rasonians strong both in heart and spirit. The direct successor of Russia they have great power, technology, and soldiers outnumbering most other countries in population."
 	)
-	local menloHolder, menloCard, menloStroke, menloTop, menloBadge, menloName, menloTag, menloDivider, menloDesc, menloSelectBtn, menloBtnLbl, menloChevron = makeTeamCard(
-		390, "MENLO", "Menlo", Color3.fromRGB(50, 220, 100),
+	makeTeamCard(
+		390, "Menlo", Color3.fromRGB(50, 220, 100),
 		"Menlo the country that has had fights with the rif directly and has weaker technology and is outnumbered but it doesnt mean they aren't as strong as the rif."
 	)
-
-	local cardHolders = { raidHolder, menloHolder }
-	local cardFades = { raidCard, menloCard }
-	local cardStrokesForFade = { raidStroke, menloStroke }
-	-- Extra per-card elements that also need to fade in/out with the modal
-	-- (topBar and badge use their own target transparency, not 0, so they're
-	-- handled separately from the plain backgroundTransparency=0 fades)
-	local cardAccentFades = {
-		{ frame = raidTop, shown = 0.1, hidden = 1, cardIndex = 1 },
-		{ frame = raidBadge, shown = 0.6, hidden = 0.82, cardIndex = 1 },
-		{ frame = menloTop, shown = 0.1, hidden = 1, cardIndex = 2 },
-		{ frame = menloBadge, shown = 0.6, hidden = 0.82, cardIndex = 2 },
-	}
-	local cardTextFades = {
-		{ label = raidName, cardIndex = 1 }, { label = raidTag, cardIndex = 1 },
-		{ label = raidDesc, cardIndex = 1 }, { label = raidBtnLbl, cardIndex = 1 },
-		{ label = raidChevron, cardIndex = 1 },
-		{ label = menloName, cardIndex = 2 }, { label = menloTag, cardIndex = 2 },
-		{ label = menloDesc, cardIndex = 2 }, { label = menloBtnLbl, cardIndex = 2 },
-		{ label = menloChevron, cardIndex = 2 },
-	}
-	local cardMiscBgFades = {
-		{ frame = raidDivider, cardIndex = 1 }, { frame = raidSelectBtn, cardIndex = 1 },
-		{ frame = menloDivider, cardIndex = 2 }, { frame = menloSelectBtn, cardIndex = 2 },
-	}
 
 	local closeBtn = Instance.new("TextButton")
 	closeBtn.AnchorPoint = Vector2.new(1, 0)
 	closeBtn.Position = UDim2.new(1, -16, 0, 16)
 	closeBtn.Size = UDim2.fromOffset(32, 32)
 	closeBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-	closeBtn.BackgroundTransparency = 1
 	closeBtn.BorderSizePixel = 0
-	closeBtn.AutoButtonColor = false
-	closeBtn.Text = "\u{2715}"
+	closeBtn.Text = "X"
 	closeBtn.Font = Enum.Font.GothamBold
 	closeBtn.TextSize = 14
 	closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	closeBtn.TextTransparency = 1
 	closeBtn.Parent = container
 	Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(1, 0)
-	local closeStroke = Instance.new("UIStroke")
-	closeStroke.Color = Color3.fromRGB(90, 90, 110)
-	closeStroke.Thickness = 1.5
-	closeStroke.Transparency = 1
-	closeStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	closeStroke.Parent = closeBtn
 
-	closeBtn.MouseEnter:Connect(function()
-		tween(closeBtn, 0.15, { BackgroundColor3 = Color3.fromRGB(200, 50, 60) })
-		tween(closeStroke, 0.15, { Color = Color3.fromRGB(255, 90, 100) })
-	end)
-	closeBtn.MouseLeave:Connect(function()
-		tween(closeBtn, 0.15, { BackgroundColor3 = Color3.fromRGB(30, 30, 45) })
-		tween(closeStroke, 0.15, { Color = Color3.fromRGB(90, 90, 110) })
-	end)
-
-	----------------------------------------------------------------
-	-- Open / close animation
-	----------------------------------------------------------------
-	local isOpen = false
-	local function closeModal()
-		if not isOpen then return end
-		isOpen = false
-		tween(modal, 0.18, { BackgroundTransparency = 1 })
-		tween(blurDim, 0.18, { BackgroundTransparency = 1 })
-		tween(container, 0.18, { BackgroundTransparency = 1 })
-		tween(contStroke, 0.18, { Transparency = 1 })
-		tween(titleLbl, 0.15, { TextTransparency = 1 })
-		tween(subLbl, 0.15, { TextTransparency = 1 })
-		tween(closeBtn, 0.15, { BackgroundTransparency = 1, TextTransparency = 1 })
-		tween(closeStroke, 0.15, { Transparency = 1 })
-		for _, h in ipairs(cardHolders) do
-			tween(h.UIScale, 0.15, { Scale = 0.92 })
-		end
-		for _, c in ipairs(cardFades) do
-			tween(c, 0.15, { BackgroundTransparency = 1 })
-		end
-		for _, s in ipairs(cardStrokesForFade) do
-			tween(s, 0.15, { Transparency = 1 })
-		end
-		for _, a in ipairs(cardAccentFades) do
-			tween(a.frame, 0.15, { BackgroundTransparency = a.hidden })
-		end
-		for _, t in ipairs(cardTextFades) do
-			tween(t.label, 0.15, { TextTransparency = 1 })
-		end
-		for _, m in ipairs(cardMiscBgFades) do
-			tween(m.frame, 0.15, { BackgroundTransparency = 1 })
-		end
-		task.delay(0.2, function()
-			if modal and not isOpen then modal.Visible = false end
-		end)
-	end
-
-	local function openModal()
-		if isOpen then return end
-		isOpen = true
-		modal.Visible = true
-		tween(modal, 0.22, { BackgroundTransparency = 0.35 })
-		tween(blurDim, 0.22, { BackgroundTransparency = 0.5 })
-		tween(container, 0.22, { BackgroundTransparency = 0 })
-		tween(contStroke, 0.22, { Transparency = 0 })
-		task.delay(0.05, function()
-			if isOpen then
-				tween(titleLbl, 0.2, { TextTransparency = 0 })
-				tween(subLbl, 0.2, { TextTransparency = 0 })
-				tween(closeBtn, 0.2, { BackgroundTransparency = 0, TextTransparency = 0 })
-				tween(closeStroke, 0.2, { Transparency = 0.3 })
-			end
-		end)
-		for i, h in ipairs(cardHolders) do
-			h.UIScale.Scale = 0.9
-			task.delay(0.08 * i, function()
-				if isOpen then
-					tween(h.UIScale, 0.25, { Scale = 1 })
-				end
-			end)
-		end
-		for i, c in ipairs(cardFades) do
-			task.delay(0.08 * i, function()
-				if isOpen then tween(c, 0.22, { BackgroundTransparency = 0 }) end
-			end)
-		end
-		for i, s in ipairs(cardStrokesForFade) do
-			task.delay(0.08 * i, function()
-				if isOpen then tween(s, 0.22, { Transparency = 0.4 }) end
-			end)
-		end
-		for _, a in ipairs(cardAccentFades) do
-			task.delay(0.08 * a.cardIndex + 0.1, function()
-				if isOpen then tween(a.frame, 0.2, { BackgroundTransparency = a.shown }) end
-			end)
-		end
-		for _, t in ipairs(cardTextFades) do
-			task.delay(0.08 * t.cardIndex + 0.1, function()
-				if isOpen then tween(t.label, 0.2, { TextTransparency = 0 }) end
-			end)
-		end
-		for _, m in ipairs(cardMiscBgFades) do
-			task.delay(0.08 * m.cardIndex + 0.1, function()
-				if isOpen then tween(m.frame, 0.2, { BackgroundTransparency = 0 }) end
-			end)
-		end
-	end
-
-	closeBtn.MouseButton1Click:Connect(closeModal)
-	blurDim.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			closeModal()
-		end
-	end)
-	openBtn.MouseButton1Click:Connect(openModal)
-
-	onCleanup(function()
-		isOpen = false
-	end)
+	closeBtn.MouseButton1Click:Connect(function() modal.Visible = false end)
+	openBtn.MouseButton1Click:Connect(function() modal.Visible = true end)
 end)
 
 ---------------------------------------------------------------- 7) layout editor
