@@ -1,9 +1,10 @@
 --[[
 	Script v8 = v7 plus:
-	* cool team selection ui with full lore descriptions, auto-reset, and client-sided team state tracking.
-	* fixed danger meter
+	* FUTURISTIC DARK TEAM SELECTOR: Cybernetic modal button opening team selection for RAID and MENLO
+	  with full lore descriptions, auto-reset, and client-sided team state tracking.
+	* RE-CALIBRATED THREAT SENSITIVITY: Adjusted threat tiers and enemy scaling so weak mobs no longer hit EXTREME.
 	* BOOSTED STAMINA: Higher max stamina limits and instantaneous recovery.
-	* fixed anim duplication
+	* ANIMATION OVERLAP FIX: Hardened zero-delay frame-1 silencing in Kit.swap and RenderStepped polling.
 	* VISOR & CRT OVERHAUL: Enhanced retro aesthetics, phosphor glow, and tactical readouts.
 	* RAPID-FIRE ABILITY STOP: Stops the replacement animation if triggered again in under 0.4 seconds.
 ]]
@@ -22,7 +23,7 @@ local Shared = env.Shared or rawget(_G, "Shared") or {}
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
----------------------------------------------------------------- cleanup of previous run XD
+---------------------------------------------------------------- cleanup of previous run
 local GUI_NAMES = {
 	"ESPToggleGui", "ViralFistsGUI", "CombatControlsGui", "VictimAnimGui",
 	"SinSwapGui", "ExecModeGui", "LayoutEditorGui", "DevicePromptGui", "ScriptStatusGui", "ScriptLogGui", "VisorToggleGui", "RifVisorGui", "MenloToggleGui", "MenloVisorGui", "HideHudGui", "TeamSelectGui",
